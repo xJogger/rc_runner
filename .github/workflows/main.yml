@@ -25,8 +25,8 @@ jobs:
         curl https://rclone.org/install.sh | sudo bash
     - name: Run Python
       env:
-        rclone_config: ${{ secrets.rclone_config }}
-        cmd          : ${{ secrets.cmd }}
-        push_url     : ${{ secrets.push_url }}
+        RCLONE_CONFIG: ${{ secrets.RCLONE_CONFIG }}
+        CMD          : ${{ secrets.CMD }}
+        PUSH_URL     : ${{ secrets.PUSH_URL }}
       run: |
-        python3 rclone_runner.py "$rclone_config" "$cmd" "$push_url"
+        python3 rclone_runner.py "$RCLONE_CONFIG" "$CMD" "$PUSH_URL"
