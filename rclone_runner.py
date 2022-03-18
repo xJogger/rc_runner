@@ -18,6 +18,10 @@ def print_check(input_str):
     print(10*'=',from64(res)==input_str,10*'=')
 
 def write_config(rclone_config):
+    try:
+        os.mkdirs('~/.config/rclone')
+    except:
+        pass
     with open('~/.config/rclone/rclone.conf','w') as f:
         f.writelines(rclone_config)
 
