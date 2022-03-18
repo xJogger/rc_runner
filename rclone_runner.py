@@ -21,7 +21,7 @@ def write_config(home_path,rclone_config):
     config_folder = os.path.join(home_path,'.config/rclone')
     config_path   = os.path.join(home_path,'.config/rclone/rclone.conf')
     try:
-        os.path.makedirs(config_folder)
+        os.makedirs(config_folder)
     except:
         pass
     with open(config_path,'w') as f:
