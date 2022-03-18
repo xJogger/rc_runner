@@ -29,4 +29,4 @@ jobs:
         CMD          : ${{ secrets.CMD }}
         PUSH_URL     : ${{ secrets.PUSH_URL }}
       run: |
-        python3 rclone_runner.py "$RCLONE_CONFIG" "$CMD" "$PUSH_URL"
+        python3 rclone_runner.py ~ "$RCLONE_CONFIG" "$CMD" "$PUSH_URL"
