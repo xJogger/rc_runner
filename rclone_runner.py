@@ -77,7 +77,7 @@ def main():
         transfered = str(0)
         percentage = str(0)
         print('信息读取错误')
-    requests.post(push_url, data={"text" : f'Github传输已完成({percentage})：\n{transfered}({res}：)'})
+    requests.post(push_url, data={"text" : f'Github传输已完成({percentage})：\n{transfered}\n({res})'})
 
 if __name__ == '__main__':
     main()
