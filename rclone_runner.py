@@ -49,7 +49,7 @@ def run_job(args,job_time,log_path): # time单位：s
     return 0 # 正常退出
 
 def main():
-    home_path     = from64(sys.argv[1])
+    home_path     = sys.argv[1]
     rclone_config = from64(sys.argv[2])
     cmd           = from64(sys.argv[3]) # 示例：rclone sync --progress remote1:path remote2:path --exclude=**/.@__thumb/** > ~/rclone.log 2>&1
     push_url      = from64(sys.argv[4]) # 示例：https://wx.vercel.app/11223344.send
