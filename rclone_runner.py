@@ -18,7 +18,12 @@ def print_check(input_str):
     print(10*'=',from64(res)==input_str,10*'=')
 
 def write_config(home_path,rclone_config):
-    config_path = os.path.join(home_path,'.config/rclone/rclone.conf')
+    config_folder = os.path.join(home_path,'.config/rclone')
+    config_path   = os.path.join(home_path,'.config/rclone/rclone.conf')
+    try:
+        os.path.makedirs(config_folder)
+    except:
+        pass
     with open(config_path,'w') as f:
         f.writelines(rclone_config)
 
