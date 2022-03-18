@@ -17,13 +17,7 @@ def print_check(input_str):
     print(res)
     print(10*'=',from64(res)==input_str,10*'=')
 
-def write_config(home_path,rclone_config):
-    config_folder = os.path.join(home_path,'.config/rclone')
-    config_path   = os.path.join(home_path,'.config/rclone/rclone.conf')
-    try:
-        os.makedirs(config_folder)
-    except:
-        pass
+def write_config(config_path,rclone_config):
     with open(config_path,'w') as f:
         f.writelines(rclone_config)
 
@@ -60,12 +54,16 @@ def run_job(args,job_time,log_path): # time单位：s
 def main():
     home_path     = sys.argv[1]
     rclone_config = from64(sys.argv[2])
-    cmd           = from64(sys.argv[3]) # 示例：rclone sync --progress remote1:path remote2:path --exclude=**/.@__thumb/** > ~/rclone.log 2>&1
+    cmd_in        = from64(sys.argv[3]) # 示例：rclone sync remote1:path remote2:path --exclude=**/.@__thumb/** 
     push_url      = from64(sys.argv[4]) # 示例：https://wx.vercel.app/11223344.send
+
     log_path      = os.path.join(home_path,'rclone.log')
-    write_config(home_path,rclone_config)
+    config_path   = os.path.join(home_path,'rclone.conf')
+    cmd           = cmd_in + f' --progress --transfers 4 --config="{config_path}" > {log_path} 2>&1'
+    job_time      = 5*3600 # 五个小时的秒数 Github action单次最长5小时
+
+    write_config(config_path,rclone_config)
     requests.post(push_url, data={"text" : f"Github传输已开始"})
-    job_time = 5*3600 # 五个小时的秒数 Githun action单次最长5小时
     code     = run_job(cmd,job_time,log_path)
     if code == 1:
         res = '超时结束'
