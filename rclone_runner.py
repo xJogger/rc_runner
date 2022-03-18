@@ -50,6 +50,7 @@ def run_job(args,job_time,log_path): # time单位：s
             _,_,line = get_info(log_path)
         except:
             print('信息读取错误')
+            line = str(0)
         print(line)
         if elapsed_time > job_time :
             os.killpg(process.pid, signal.SIGTERM)
