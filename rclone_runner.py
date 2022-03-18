@@ -46,7 +46,10 @@ def run_job(args,job_time,log_path): # time单位：s
     while process.poll()==None:
         time.sleep(1)
         elapsed_time = int(time.time() - start_time)
-        _,_,line = get_info(log_path)
+        try:
+            _,_,line = get_info(log_path)
+        except:
+            print('信息读取错误')
         print(line)
         if elapsed_time > job_time :
             os.killpg(process.pid, signal.SIGTERM)
@@ -69,7 +72,12 @@ def main():
         res = '正常结束'
     else:
         res = '异常结束'
-    transfered,percentage,_ = get_info(log_path)
+    try:
+        transfered,percentage,_ = get_info(log_path)
+    except:
+        transfered = str(0)
+        percentage = str(0)
+        print('信息读取错误')
     requests.post(push_url, data={"text" : f'Github传输已完成({percentage})：\n{transfered}({res}：)'})
 
 if __name__ == '__main__':
